@@ -5,7 +5,11 @@ jobs:
       - image: openjdk:8u342
     steps:
       - checkout
-      - run:
-          name: The First Step
-          command: |
-            ls
+      - when:
+          condition:
+            equal: [ ci ]
+          steps:
+            - run:
+                name: The First Step
+                command: |
+                  ls
