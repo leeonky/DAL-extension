@@ -1,0 +1,11 @@
+version: 2.1
+jobs:
+  test:
+    docker:
+      - image: openjdk:8u342
+    steps:
+      - checkout
+      - run:
+          name: The First Step
+          command: |
+            ls
