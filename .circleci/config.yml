@@ -1,21 +1,20 @@
 version: 2.1
 jobs:
-  build:
+  test:
     docker:
       - image: openjdk:8u342
     steps:
       - checkout
       - run:
-          name: The First Step
+          name: test
           command: |
-            ls
-            git status
-#      - when:
-#          condition:
-#            equal: [ ci ]
-#          steps:
-#            - run:
-#                name: The First Step
-#                command: |
-#                  ls
-#                  git status
+            ./gradlew tasks
+            export PUB_VERSION=$(VERSION_SCOPE='' ./gradlew currentVersion -q)
+            echo "Check version[${PUB_VERSION}] and tag"
+            bash -c '! (git tag | grep "^${PUB_VERSION}$")'
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
