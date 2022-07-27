@@ -1,16 +1,21 @@
 version: 2.1
 jobs:
-  test:
+  build:
     docker:
       - image: openjdk:8u342
     steps:
       - checkout
-      - when:
-          condition:
-            equal: [ ci ]
-          steps:
-            - run:
-                name: The First Step
-                command: |
-                  ls
-                  git status
+      - run:
+          name: The First Step
+          command: |
+            ls
+            git status
+#      - when:
+#          condition:
+#            equal: [ ci ]
+#          steps:
+#            - run:
+#                name: The First Step
+#                command: |
+#                  ls
+#                  git status
